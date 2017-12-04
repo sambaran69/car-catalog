@@ -1,0 +1,40 @@
+{
+    "name": "car-catalog",
+    "version": "1.0.0",
+    "description": "Car catalog with search and filter",
+    "main": "index.js",
+    "scripts": {
+        "build": "npm run clean && webpack-dashboard -- webpack --env.build --env.sourceMap",
+        "start": "webpack-dashboard -m -- webpack-dev-server --open",
+        "awesome": "webpack-dashboard -m -- webpack-dev-server --open --env.awesome",
+        "clean": "rimraf build",
+        "lint": "tslint --project tsconfig.json",
+        "lint:fix": "tslint --project tsconfig.json --fix",
+        "test": "jest --config jest.json",
+        "test:update": "jest --config jest.json -u"
+    },
+    "author": "Sambaran Roy",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/react": "^16.0.25",
+        "@types/react-dom": "^16.0.3",
+        "awesome-typescript-loader": "^3.4.1",
+        "html-webpack-plugin": "^2.30.1",
+        "jest": "^21.2.1",
+        "react-hot-loader": "^3.1.3",
+        "rimraf": "^2.6.2",
+        "ts-jest": "^21.2.4",
+        "ts-loader": "^3.2.0",
+        "tslint": "^5.8.0",
+        "tslint-loader": "^3.5.3",
+        "tslint-react": "^3.2.0",
+        "typescript": "^2.6.2",
+        "webpack": "^3.9.1",
+        "webpack-dashboard": "^1.0.2",
+        "webpack-dev-server": "^2.9.5"
+    },
+    "dependencies": {
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0"
+    }
+}

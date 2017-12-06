@@ -10,8 +10,8 @@ export default class ModelsApi {
     return fetch(`/api/make/${makeId}`, null);
   }
 
-  static async getCarOfWeek() {
-    return fetch("/api/carOfWeek", null);
+  static async getCarOfTheWeek() {
+    return fetch("/api/carOfTheWeek", null);
   }
 
   static async getModelById(modelId: any) {

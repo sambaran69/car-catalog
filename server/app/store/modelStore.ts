@@ -16,7 +16,7 @@ function readJSONFile(filename: string, callback: any) {
   });
 }
 
-function getCarOfWeek() {
+function getCarOfWeek(): Promise<any> {
   return new Promise((resolve, reject) => {
     readJSONFile("carOfTheWeek.json", (err, result) => {
       if (err) {
@@ -49,7 +49,7 @@ function getAllModels(): Promise<any[]> {
   });
 }
 
-function getModelsByMakerId(makeId: any) {
+function getModelsByMakeId(makeId: any): Promise<any[]> {
   return new Promise((resolve, reject) => {
     getAllModels().then(values => {
       const models = values.filter(x => x.makeId === makeId);
@@ -89,6 +89,6 @@ function getModelsByMakes(makeName: string) {
 module.exports = {
   getCarOfWeek,
   getAllMakes,
-  getModelsByMakerId,
+  getModelsByMakeId,
   getModelByModelId,
 };

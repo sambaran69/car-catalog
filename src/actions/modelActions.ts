@@ -10,22 +10,22 @@ export const getModels = (makerId: any) => async dispatch => {
   }
 };
 
-function getModelsSuccess(models: any) {
+function getModelsSuccess(models: any): types.IModelsAction {
   return { type: types.LOAD_ALL_MODELS_FOR_MAKE, models };
 }
 
 export const getCarOfWeek = () => async dispatch => {
   try {
-    const carOfWeek = await modelsApi.getCarOfWeek();
-    dispatch(getCarOfWeekSuccess(carOfWeek));
-    dispatch(getModelById(carOfWeek.modelId));
+    const carOfTheWeek = await modelsApi.getCarOfTheWeek();
+    dispatch(getCarOfWeekSuccess(carOfTheWeek));
+    dispatch(getModelById(carOfTheWeek.modelId));
   } catch (err) {
     console.log(err);
   }
 };
 
-function getCarOfWeekSuccess(carOfWeek: any) {
-  return { type: types.LOAD_CAR_OF_WEEK, carOfWeek };
+function getCarOfWeekSuccess(carOfTheWeek: any): types.ICarOfTheWeekAction {
+  return { type: types.LOAD_CAR_OF_WEEK, carOfTheWeek };
 }
 
 export const getModelById = (modelId: any) => async dispatch => {
@@ -37,6 +37,6 @@ export const getModelById = (modelId: any) => async dispatch => {
   }
 };
 
-function getModelByIdSuccess(model: any) {
+function getModelByIdSuccess(model: any): types.IModelAction {
   return { type: types.LOAD_MODEL_FOR_MODEL_ID, model };
 }

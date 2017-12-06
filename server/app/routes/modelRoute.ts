@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const modelStore = require("../store/modelStore");
 
-router.get("/maker", (req, res) => {
+router.get("/make", (req, res) => {
     modelStore.getAllMakers().then(makes => {
         res.json(makes);
     }).catch(err => {
@@ -11,9 +11,9 @@ router.get("/maker", (req, res) => {
     });
 });
 
-router.get("/maker/:makerId", (req, res) => {
-    const makerId = +req.params.makerId;
-    modelStore.getModelsByMakerId(makerId).then(models => {
+router.get("/make/:makeId", (req, res) => {
+    const makeId = +req.params.makeId;
+    modelStore.getModelsByMakeId(makeId).then(models => {
         res.json(models);
     }).catch(err => {
         // log err
@@ -31,7 +31,7 @@ router.get("/model/:modelId", (req, res) => {
     });
 });
 
-router.get("/carOfWeek", (req, res) => {
+router.get("/carOfTheWeek", (req, res) => {
     modelStore.getCarOfWeek().then(car => {
         res.json(car);
     }).catch(err => {

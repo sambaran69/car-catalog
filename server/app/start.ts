@@ -1,15 +1,19 @@
-const express = require("express");
+import * as express from "express";
+import * as bodyParser from "body-parser";
 const chalk = require("chalk");
-const carRoutes = require("./routes/modelRoute");
+const routes = require("./routes/modelRoute");
 
 process.on("unhandledRejection", err => {
   throw err;
 });
 
 console.log(chalk.cyan("Starting SERVER...."));
-let app = express();
+const app = express();
 app.set("trust proxy", true);
 console.log(chalk.cyan("RUNNING ON NODE VERSION: " + process.version));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //////////////////////////////
 // Configure CORS
@@ -20,7 +24,7 @@ app.use("*", (req, res, next) => {
   next();
 });
 
-app.use("/api", carRoutes);
+app.use("/api", routes);
 
 // catch 404 and forward to error handlers
 app.use((req, res, next) => {
@@ -29,7 +33,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-let port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 app.set("port", port);
 console.log("Listening on port: " + port);
 
@@ -37,18 +41,12 @@ console.log("Listening on port: " + port);
  * Listen on provided port, on all network interfaces.
  */
 app.listen(port);
-app.on("error", onError);
-app.on("listening", onListening);
-app.timeout = 60000 * 60; // 1hr
 
 /**
  * Event listener for HTTP server "error" event.
  */
-function onError(error) {
-  if (error.syscall !== "listen") throw error;
-
-  let bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
-
+app.use((error: any, req, res, next) => {
+  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
@@ -63,15 +61,6 @@ function onError(error) {
       console.log(error);
       throw error;
   }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-function onListening() {
-  let addr = app.address();
-  let bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  console.log("Listening on " + bind);
-}
+});
 
 module.exports = app;

@@ -27,7 +27,7 @@ function getCarOfWeek() {
   });
 }
 
-function getAllMakes() {
+function getAllMakes(): Promise<any[]> {
   return new Promise((resolve, reject) => {
     readJSONFile("makes.json", (err, result) => {
       if (err) {
@@ -38,7 +38,7 @@ function getAllMakes() {
   });
 }
 
-function getAllModels() {
+function getAllModels(): Promise<any[]> {
   return new Promise((resolve, reject) => {
     readJSONFile("models.json", (err, result) => {
       if (err) {
@@ -52,7 +52,7 @@ function getAllModels() {
 function getModelsByMakerId(makeId: any) {
   return new Promise((resolve, reject) => {
     getAllModels().then(values => {
-      const models = values.filter(x=>x.makeId === makeId);
+      const models = values.filter(x => x.makeId === makeId);
       resolve(models);
     }).catch(err => reject(err));
   });
@@ -61,10 +61,10 @@ function getModelsByMakerId(makeId: any) {
 function getModelByModelId(modelId: any) {
   return new Promise((resolve, reject) => {
     getAllModels().then(values => {
-        const model = values.find(x=>x.id === modelId);
+        const model = values.find(x => x.id === modelId);
         resolve(model);
     }).catch(err => reject(err));
-  }); 
+  });
 }
 
 function getModelsByMakes(makeName: string) {
@@ -73,9 +73,9 @@ function getModelsByMakes(makeName: string) {
       getAllMakes(),
       getAllModels(),
     ]).then(values => {
-        const make = values[0].find(x=> x.name === makeName);
+        const make = values[0].find(x => x.name === makeName);
         if (make) {
-          const models = values[1].filter( y => y.makeId ===  make.id);
+          const models = values[1].filter(y => y.makeId ===  make.id);
           resolve(models);
         } else {
           throw (`no make ${makeName} found`);

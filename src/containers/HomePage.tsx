@@ -8,7 +8,7 @@ import Home from "../components/Home";
 export class HomePage extends React.Component {
 
   async componentDidMount() {
-    this.props.getCarOfWeek()
+    this.props.actions.getCarOfWeek();
   }
 
   render() {
@@ -22,25 +22,26 @@ export class HomePage extends React.Component {
   }
 }
 
-CarOfWeekPage.propTypes = {
-  currentCarDetail: PropTypes.object.isRequired,  
-  carOfWeek: PropTypes.object.isRequired
+HomePage.propTypes = {
+  actions: PropTypes.object.isRequired,
+  currentCarDetail: PropTypes.object.isRequired,
+  carOfWeek: PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
     currentCarDetail: state.model.currentCarDetail,
-    carOfWeek: state.model.carOfWeek
+    carOfWeek: state.model.carOfWeek,
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
-    getCarOfWeek: () => dispatch(actions.getCarOfWeek())
+    getCarOfWeek: () => dispatch(actions.getCarOfWeek()),
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(CarOfWeekPage);
+  mapDispatchToProps,
+)(HomePage);

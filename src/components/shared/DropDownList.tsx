@@ -7,7 +7,7 @@ interface IDropDownListProps {
   value: string;
   text: string;
   size: string;
-  onchange: () => void;
+  onchange: (e: any) => void;
 }
 
 class DropDownList extends React.Component<IDropDownListProps, {}> {

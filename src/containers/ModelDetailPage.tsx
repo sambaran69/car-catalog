@@ -1,14 +1,15 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as actions from "../actions/modelActions";
 import ModelDetail from "../components/ModelDetail";
 
-export class DetailPage extends React.Component {
+export class ModelDetailPage extends React.Component {
 
   async componentDidMount() {
     const modelId = this.props.match.params.id;
-    this.props.getModel(modelId);
+    this.props.actions.getModel(modelId);
   }
 
   render() {
@@ -22,16 +23,16 @@ export class DetailPage extends React.Component {
 
 DetailPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  car: PropTypes.object.isRequired
+  model: PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
     model: state.model.currentModelDetail,
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: any) {
   return {
     getModel: modelId => dispatch(actions.getModelById(modelId)),
   };
@@ -39,5 +40,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(DetailPage);
+  mapDispatchToProps,
+)(ModelDetailPage);

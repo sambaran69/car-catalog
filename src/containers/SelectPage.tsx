@@ -7,31 +7,42 @@ import DropdownList from "../components/shared/DropDownList";
 
 export class SelectPage extends React.Component {
   state = {
+    makeId: -1,
     modelId: -1,
   };
 
-  getModels = e => {
-    this.props.actions.getModels(e.target.value);
+  getModelsForMake = e => {
+    const makeId = this.state.makeId;
+    this.props.actions.getModels(makeId);
   }
 
   gotoDetail = () => {
     const modelId = this.state.modelId;
-    this.props.history.push(`/make/model/${modelId}`)
+    this.props.history.push(`/make/model/${modelId}`);
   }
 
   render() {
     return (
       <div>
-      
-      <DropdownList 
-        dataSource={this.props.models} 
-        size={300}
-        name="modelList"
-        value="id"
-        text="name" 
-        onchange={(e) => this.setState({modelId: e.target.value})}      
+        <DropdownList
+          id="makeList"
+          dataSource={this.props.makes}
+          name="Car Makes List"
+          value="id"
+          text="name"
+          size="300"
+          onchange={(e) => this.setState({makeId: e.target.value})}
         />
-      <button onClick={this.gotoDetail}>Search</button>
+        <DropdownList
+          id="modelList"
+          dataSource={this.props.models}
+          name="Car Models List"
+          value="id"
+          text="name"
+          size="300"
+          onchange={(e) => this.setState({modelId: e.target.value})}
+        />
+        <button onClick={this.gotoDetail}>Search</button>
       </div>
     );
   }
@@ -40,13 +51,13 @@ export class SelectPage extends React.Component {
 SelectPage.propTypes = {
   actions: PropTypes.object.isRequired,
   makes: PropTypes.array,
-  models: PropTypes.array
+  models: PropTypes.array,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
-    makers: state.makers,
-    models: state.model.models
+    makes: state.makes,
+    models: state.models,
   };
 }
 
@@ -58,5 +69,5 @@ function mapDispatchToProps(dispatch: any) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SelectPage);
